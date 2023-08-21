@@ -25,11 +25,11 @@ namespace Script.JudgePanel
         {
             var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
 
-            //태그를 갖고있는 여러 객체들을 관리할대는 뭘쓰는거지
-            //var JudgePanelEntity = SystemAPI.GetSingletonEntity<JudgePanelTag>();
-            //var JudgePanelAspect = SystemAPI.GetAspect<JudgePanelAspect>(JudgePanelEntity);
-
-            //var nearPistolNodeAspect = SystemAPI.GetAspect<MusicNoteAspect>();
+            var judgePanelJob = new JudgePanelJob()
+            {
+                ECB = ecb.AsParallelWriter(),
+            };
+            state.Dependency = judgePanelJob.ScheduleParallel(state.Dependency);
         }
     }
 }

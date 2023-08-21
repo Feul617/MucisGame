@@ -18,9 +18,6 @@ namespace Script.NoteGenerator
             {
                 StartPosition = authoring.transform.position,
             };
-            AddComponent(entity, new MusicNoteAuthoring()
-            {
-            });
         }
     }
 }

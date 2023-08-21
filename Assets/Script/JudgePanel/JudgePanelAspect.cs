@@ -15,12 +15,12 @@ namespace Script.JudgePanel
         public float JudgeInterval => _noteAuthoring.ValueRO.NoteInfo.LerpTime;
         public JudgeLine line => _authoring.ValueRO.line;
         
-        public JudgeType Judge()
+        public int Judge()
         {
-            if (JudgeInterval is < 0.95f and > 0.85f) return JudgeType.Perfect;
-            if (JudgeInterval is < 0.85f and > 0.75f) return JudgeType.Good;
-            if (JudgeInterval is < 0.75f and > 0.65f) return JudgeType.Bad;
-            return JudgeType.Miss;
+            if (JudgeInterval is < 0.95f and > 0.85f) return 500;
+            if (JudgeInterval is < 0.85f and > 0.75f) return 300;
+            if (JudgeInterval is < 0.75f and > 0.65f) return 200;
+            return 0;
         }
     }
 }

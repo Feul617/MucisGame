@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Script.Manager;
+using Unity.Entities;
 using UnityEngine;
 
 namespace Script.JudgePanel
@@ -7,26 +8,26 @@ namespace Script.JudgePanel
     {
         public EntityCommandBuffer.ParallelWriter ECB;
         
-        public void Execute(JudgePanelAspect aspect, [ChunkIndexInQuery]int sortKey)
+        public void Execute(JudgePanelAspect aspect, ManagerAspect managerAspect, [ChunkIndexInQuery]int sortKey)
         {
+
             switch (aspect.line)
             {
-                //판정 -> 점수이므로 매니저에서 다시 만들어야함
                 case JudgeLine.First:
                     if (Input.GetKeyDown(KeyCode.D))
-                        aspect.Judge();
+                        managerAspect._authoring.ValueRW.score += aspect.Judge();
                     break;
                 case JudgeLine.Second:
                     if (Input.GetKeyDown(KeyCode.F))
-                        aspect.Judge();
+                        managerAspect._authoring.ValueRW.score += aspect.Judge();
                     break;
                 case JudgeLine.Third:
                     if (Input.GetKeyDown(KeyCode.J))
-                        aspect.Judge();
+                        managerAspect._authoring.ValueRW.score += aspect.Judge();
                     break;
                 case JudgeLine.Fourth:
                     if (Input.GetKeyDown(KeyCode.K))
-                        aspect.Judge();
+                        managerAspect._authoring.ValueRW.score += aspect.Judge();
                     break;
             }
         }
