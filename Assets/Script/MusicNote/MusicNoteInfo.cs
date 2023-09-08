@@ -25,10 +25,5 @@ namespace Script.MusicNote
         public float3 EndPosition;
         public float LerpTime;
         public float NoteSpeed;
-
-        public void SetStartPosition(float3 startPosition)
-        {
-            StartPosition = startPosition;
-        }
     }
 }

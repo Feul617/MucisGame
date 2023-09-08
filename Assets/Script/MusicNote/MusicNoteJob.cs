@@ -1,4 +1,6 @@
+using System.Runtime.InteropServices.ComTypes;
 using Unity.Entities;
+using Unity.Mathematics;
 
 namespace Script.MusicNote
 {
@@ -9,7 +11,8 @@ namespace Script.MusicNote
         
         private void Execute(MusicNoteAspect aspect, [ChunkIndexInQuery]int sortKey)
         {
-            aspect.NoteFalling(DeltaTime);
+            
+            aspect.Position -= new float3(0, aspect.NoteSpeed, 0);
         }
     }
 }

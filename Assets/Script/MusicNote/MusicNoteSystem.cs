@@ -9,20 +9,18 @@ namespace Script.MusicNote
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-
-            var musicNoteJob = new MusicNoteJob()
+            var musicJob = new MusicNoteJob()
             {
-                ECB = ecb.AsParallelWriter(),
-                DeltaTime = SystemAPI.Time.DeltaTime,
+                
             };
-            state.Dependency = musicNoteJob.ScheduleParallel(state.Dependency);
+            //인자로 state.Dependency가 들어가는 이유는 R벨류에 L벨류를 넣어주기 때문에 state.Dependency + musicjob을 넣어주는 것
+            state.Dependency = musicJob.Schedule(state.Dependency);
+            
         }
 
         [BurstCompile]

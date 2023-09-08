@@ -9,12 +9,21 @@ namespace Script.MusicNote
     {
         public readonly Entity Entity;
 
+        public readonly RefRO<MusicNoteTag> _Tag;
+
         public readonly RefRW<LocalTransform> Transform;
         public readonly RefRW<MusicNoteAuthoring> MusicNodeAuthoring;
 
         public float3 StartPosition => MusicNodeAuthoring.ValueRO.NoteInfo.StartPosition;
         public float3 EndPosition => MusicNodeAuthoring.ValueRO.NoteInfo.EndPosition;
+        //nodeinfo로 이동된 notespeed를 aspect에 넣어줌
         public float NoteSpeed => MusicNodeAuthoring.ValueRO.NoteInfo.NoteSpeed;
+
+        public float3 Position
+        {
+            get => Transform.ValueRO.Position;
+            set => Transform.ValueRW.Position = value;
+        }
 
         public float LerpTime
         {
@@ -25,8 +34,6 @@ namespace Script.MusicNote
         public void NoteFalling(float deltaTime)
         {
             LerpTime += deltaTime * NoteSpeed;
-            //Transform.ValueRW.Position.y -= NoteSpeed * deltaTime;
-            //Vector3.Lerp(StartPosition, EndPosition, LerpTime);
             Transform.ValueRW.Position = math.lerp(StartPosition, EndPosition, LerpTime) * (StartPosition - EndPosition);
         }
     }
